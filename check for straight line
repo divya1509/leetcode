@@ -1,0 +1,30 @@
+class Solution {
+    public boolean checkStraightLine(int[][] coordinates) {
+        if(coordinates.length==2) return true;
+        
+        double dy= Math.abs(coordinates[0][1]- coordinates[1][1]);
+        double dx= Math.abs(coordinates[0][0]- coordinates[1][0]);
+        double slope;
+        if(dy!=0 && dx!=0) slope= (double)(dy/dx);
+        else if(dy==0) slope = 0;
+        else slope = Integer.MIN_VALUE;
+        
+        
+        for(int i=2; i<coordinates.length; i++){
+            
+            double ty = Math.abs(coordinates[i-1][1]- coordinates[i][1]);
+            double tx= Math.abs(coordinates[i-1][0]- coordinates[i][0]);
+            
+            double temp;
+            if(ty!=0 && tx!=0) temp= (double)(ty/tx);
+            else if(ty==0) temp = 0;
+            else temp = Integer.MIN_VALUE;
+            
+            if(temp!=slope) 
+                return false;
+            // else return false;
+        }
+        
+        return true;
+    }
+}
