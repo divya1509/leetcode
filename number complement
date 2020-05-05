@@ -1,0 +1,41 @@
+class Solution {
+    public int findComplement(int num) {
+        
+//         String binary= "";
+//         long bin = 0;
+//         long pow =1;
+//         while(num>0){
+//             int rem = num%2;
+//             binary= (char)(rem +'0') + binary;
+//             // bin+= rem*pow;
+//             // pow*=10;
+//             num/=2;
+            
+//             System.out.println(rem + " rem "+ bin + " bin " + num + " num " + pow + " pow" );
+//         }
+//         System.out.println(bin);
+        
+//         pow = 1;
+//         num=0;
+//         while(binary.length()>0){
+//             // long rem= (bin%10);
+//             // if(rem==1) rem=0;
+//             // else rem=1;
+//             // num+= rem*pow;
+//             // pow*=2;
+//             // bin/=10;
+            
+//             if(binary.charAt(0)=='0') num
+//         }
+//         return num;
+        
+        
+        int number_of_bits =  
+               (int)(Math.floor(Math.log(num) / 
+                             Math.log(2))) + 1; 
+        return ((1 << number_of_bits) - 1) ^ num; 
+        
+        // return ~num;
+        
+    }
+}
