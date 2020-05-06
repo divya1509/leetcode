@@ -1,0 +1,17 @@
+ public int majorityElement(int[] arr) {
+        int can=arr[0], count=1;
+        
+        for(int i=1; i<arr.length; i++){
+            if(can==arr[i]){
+                count++;
+            }else {
+                count--;
+                if(count==0){
+                    count=1;
+                    can=arr[i];
+                }
+            }
+        }
+        
+        return can;
+    }
