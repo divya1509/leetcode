@@ -1,0 +1,10 @@
+class Solution {
+    public int repeatedNTimes(int[] arr) {
+        Arrays.sort(arr);
+        int mid1= arr.length/2;
+        int mid2= mid1-1;
+        if(arr[0]== arr[mid2]) return arr[0];
+        else if(arr[mid1]==arr[arr.length-1]) return arr[mid1];
+        else return arr[mid1];
+    }
+}
