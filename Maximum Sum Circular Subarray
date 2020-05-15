@@ -1,0 +1,35 @@
+class Solution {
+    
+    public static int kedane(int[] arr){
+        int max= Integer.MIN_VALUE, cmax=  Integer.MIN_VALUE;
+        for(int i=0; i<arr.length; i++){
+            if(cmax<0){
+                cmax= arr[i];
+            }else {
+                cmax+= arr[i];
+            }
+            
+            if(cmax>max) max= cmax;
+        }
+        
+        
+        return max;
+    }
+    
+    public int maxSubarraySumCircular(int[] A) {
+        
+        int omax= kedane(A);
+        int sum=0, mmax= 0;
+        
+        for(int i=0; i<A.length; i++){
+            sum+= A[i];
+            A[i]=-A[i];
+        }
+        
+        mmax= kedane(A);
+        mmax+= sum;
+        int ans=  Math.max(mmax, omax);
+        if(ans==0) return  Math.min(mmax, omax);
+        return  Math.max(mmax, omax);
+    }
+}
