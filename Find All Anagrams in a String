@@ -1,0 +1,41 @@
+class Solution {
+    
+    public static boolean verify(int[] dic1, int [] dic2){
+        for(int i=0; i<26; i++){
+            // System.out.print(dic1[i] + " " + dic2[i]  + " ");
+            if(dic1[i]!=dic2[i]) return false;
+        }
+        return true;
+    }
+    
+    
+    public List<Integer> findAnagrams(String s, String p) {
+        
+        if(s.length()<p.length()) return new ArrayList<>();
+        
+        int[] dic1 = new int[26];
+        int[] dic2 = new int[26];
+        List<Integer> ans = new ArrayList<Integer>();
+        
+        for(int i=0; i<p.length(); i++){
+            dic1[(int)(p.charAt(i)-'a')]++;
+            dic2[(int)(s.charAt(i)-'a')]++;
+        }
+        int start =0, end = p.length()-1;
+        while(end<s.length()){
+            if(verify(dic1, dic2)){
+                System.out.println("here");
+                ans.add(start);
+            } 
+            
+            // if(end==s.length()) break;
+            dic2[(int) (s.charAt(start)-'a')]--;
+            end++; start++;
+            if(end==s.length()) break;
+            dic2[(int)(s.charAt(end)-'a')]++;
+        }
+        
+        return ans;
+        
+    }
+}
