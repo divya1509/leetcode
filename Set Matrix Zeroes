@@ -1,0 +1,30 @@
+class Solution {
+    static class pair{
+        int i, j;
+        
+        pair(int a, int b){
+            i=a;
+            j=b;
+        }
+    }
+    
+    public void setZeroes(int[][] matrix) {
+        
+        ArrayList<pair> arr= new ArrayList<pair>();
+        
+        for(int i=0;i<matrix.length; i++){
+            for(int j=0; j<matrix[0].length; j++ ){
+                if(matrix[i][j]==0) arr.add(new pair(i, j));
+            }
+        }
+        
+        for(int p=0; p<arr.size(); p++){
+            pair curr= arr.get(p);
+            
+            for(int cr= 0; cr<matrix.length; cr++) matrix[cr][curr.j]=0;
+            
+            for(int cc= 0; cc<matrix[0].length; cc++) matrix[curr.i][cc]=0;
+        }
+        
+    }
+}
