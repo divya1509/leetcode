@@ -1,0 +1,20 @@
+class Solution {
+    public int[] countBits(int num) {
+        
+        int[] ans= new int[num+1];
+        int pow=1, pos=1;
+        
+        for(int i=1; i<=num; i++ ){
+            if( i==pow ){
+                ans[i]=1;
+                pow<<=1;
+                pos=1;
+            }else {
+                ans[i]= ans[pos]+1;
+                pos++;
+            }
+        }
+        
+        return ans;
+    }
+}
