@@ -1,0 +1,37 @@
+class Solution {
+    static class pair implements Comparable<pair> {
+        int x;
+        int y;
+        int d;
+        
+        pair(int a, int b, int c){
+            this.x= a;
+            this.y= b;
+            this.d=c;
+        }
+        
+        public int compareTo(pair other){
+            return this.d-other.d;
+        }
+        
+    }
+    
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<pair> pq= new PriorityQueue<>();
+        for(int i=0; i<points.length; i++){
+            int d=(points[i][0]*points[i][0]) + (points[i][1]*points[i][1]);
+            pq.add( new pair( points[i][0] , points[i][1], d) );
+        }
+        
+        int[][] ans= new int[k][2];
+        
+        for(int i=0; i<k; i++){
+            pair curr= pq.remove();
+            ans[i][0]= curr.x;
+            ans[i][1]= curr.y;
+        }
+        
+        return ans;
+        
+    }
+}
