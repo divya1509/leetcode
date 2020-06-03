@@ -1,0 +1,47 @@
+class Solution {
+    static class pair implements Comparable<pair>{
+        int costa;
+        int costb;
+        // int sum;
+        // int idx;
+        
+        pair(int a, int b){
+            costa= a;
+            costb= b;
+            // this.sum=a;
+            // this.idx= b;
+        }
+        
+        public int compareTo(pair other){
+            // if(this.costa== other.costa ) return other.costb- this.costb;
+            // return this.costa- other.costa;
+            int temp= Math.abs(this.costa-this.costb)>Math.abs(other.costa- other.costb)?-1:1;
+            return temp;
+        }
+    }
+    
+    public int twoCitySchedCost(int[][] costs) {
+        
+        int a=costs.length/2;
+        int b= a;
+        pair[] arr= new pair[2*a]; 
+        for(int i=0; i<costs.length; i++ ){
+            arr[i]= new pair(costs[i][0], costs[i][1]); 
+        }
+        Arrays.sort(arr);
+        
+        int ans=0;
+        for(int i=0; i<arr.length; i++){
+            pair curr= arr[i];
+            if(b==0 || (a>0 && curr.costa<=curr.costb)) {
+                ans+= curr.costa;
+                a--;
+            }else {
+                ans+= curr.costb;
+                b--;
+            }
+        }
+        
+        return ans;
+    }
+}
