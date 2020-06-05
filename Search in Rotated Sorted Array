@@ -1,0 +1,38 @@
+class Solution {
+    static int pivot_find(int[] arr ){
+        if(arr.length==2){
+            if(arr[0]>arr[1]) return 1;
+            return 0;
+        }
+        int l=0, r= arr.length-1;
+        if(arr[l]<arr[r] ) return r;
+        while(l<r){
+            int mid= (l+r)/2;
+            if(arr[mid]>arr[mid+1] && (mid-1<=0 || arr[mid]>arr[mid-1]) ) return mid;
+            else if(arr[mid]>=arr[l]) l= mid+1;
+            else r= mid-1;
+        }
+        return l;
+    } 
+    
+    static int bsearch(int[] arr, int start, int end, int tar){
+        int mid;
+        while(start<=end){
+            mid= (start+end)/2;
+            if(arr[mid]==tar ) return mid;
+            else if(arr[mid]>tar) end= mid-1;
+            else start = mid+1;
+        }
+        return -1;
+    }
+    
+    public int search(int[] nums, int target) {
+        if(nums.length==0) return -1;
+        int pivot = pivot_find(nums);
+        // System.out.println(pivot);
+        if(nums[pivot]==target) return pivot;
+        int left= bsearch(nums,0, pivot-1, target );
+        if( left!=-1) return left;
+        return bsearch(nums, pivot+1, nums.length-1, target);
+    }
+}
