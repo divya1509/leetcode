@@ -1,0 +1,45 @@
+// class Solution {
+//     private double[] prob;
+    
+//     public Solution(int[] w) {
+//         double sum = 0;
+//         this.prob = new double[w.length];
+//         for(int i=0; i<w.length; i++ )
+//             sum +=i;
+//         for(int i = 0; i < w.length; i++){
+//             w[i] += (i == 0) ? 0 : w[i - 1];
+//             prob[i] = w[i]/sum; 
+//         }
+//     }
+     
+//     public int pickIndex() {
+//         return Math.abs(Arrays.binarySearch(this.prob, Math.random())) - 1;
+//     }
+// }
+
+// /**
+//  * Your Solution object will be instantiated and called as such:
+//  * Solution obj = new Solution(w);
+//  * int param_1 = obj.pickIndex();
+//  */
+
+class Solution {
+    private int[] presum;
+    private int n;
+    private Random rand;
+
+    public Solution(int[] w) {
+        n = w.length;
+        presum = new int[n];
+        rand = new Random();
+        presum[0] = w[0];
+        for (int i = 1; i < n; i++) presum[i] = presum[i - 1] + w[i];
+    }
+
+    public int pickIndex() {
+        int r = rand.nextInt(presum[n - 1]) + 1;
+        int i = Arrays.binarySearch(presum, r);
+        if (i < 0) i = -(i + 1);
+        return i;
+    }
+}
