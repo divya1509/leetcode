@@ -1,0 +1,33 @@
+class Solution {
+    static void swap(int[][] matrix, int i, int j){
+        int temp= matrix[i][j];
+        matrix[i][j]= matrix[j][i];
+        matrix[j][i]= temp;
+    }
+    
+    public void rotate(int[][] matrix) {
+        
+        //transpose
+        for(int i=0; i<matrix.length; i++){
+            for(int j=i+1; j<matrix.length; j++){
+                swap(matrix, i, j );
+            }
+        }
+        
+        // for(int i=0; i<matrix.length; i++)
+        //     for(int j=0; j<matrix.length; j++)
+        //         System.out.print(matrix[i][j] + " " );
+        
+        //swap
+        int k=0,l=matrix.length-1;
+        while(k<l ){
+            for(int c=0; c<matrix.length; c++){
+                int temp= matrix[c][k];
+                matrix[c][k]= matrix[c][l];
+                matrix[c][l]= temp;
+            }
+            k++;
+            l--;
+        }
+    }
+}
