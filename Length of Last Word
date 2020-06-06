@@ -1,0 +1,17 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int lengthOfLastWord(final String A) {
+         if(A.length()==0) return 0;
+        String[] str= A.split(" ");
+//         for(int k=0; k<str.length; k++) System.out.print(str[k] + " k " );
+        
+//         System.out.println(str.length );
+        if(str.length==0) return 0;
+        int t=str.length-1;
+        while(t>=0 && str[t].length()==0 ){
+            t--;
+        }
+            
+        return str[t].length();
+    }
+}
