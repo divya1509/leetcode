@@ -1,0 +1,17 @@
+public class Solution {
+    public String countAndSay(int n) {
+        if(n==1) return "1";
+        
+        String rec= countAndSay(n-1);
+        String ans="";
+        int count=1;
+        for(int i=1; i<=rec.length(); i++){
+            if(i<rec.length() && rec.charAt(i)==rec.charAt(i-1)) count++;
+            else {
+                ans=ans+ count+ rec.charAt(i-1);
+                count=1;
+            }
+        }
+        return ans;
+    }
+}
