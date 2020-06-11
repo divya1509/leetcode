@@ -1,0 +1,20 @@
+class Solution {
+    public int[] getStrongest(int[] arr, int k) {
+        int[] ans= new int[k];
+        Arrays.sort(arr);
+        int i=0, n= arr.length, m= arr[(n-1)/2], j= n-1, a=0;
+        
+        while(a<k){
+            int d1= Math.abs(arr[i]-m), d2= Math.abs(arr[j]-m);
+            if(d1>d2){
+                ans[a++]= arr[i++];
+            }else if(d1<d2){
+                ans[a++]= arr[j--];
+            }else {
+                if(arr[i]>arr[j]) ans[a++]= arr[i++];
+                else ans[a++]= arr[j--];
+            }
+        }
+        return ans;
+    }
+}
