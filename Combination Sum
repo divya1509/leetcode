@@ -1,0 +1,27 @@
+class Solution {
+    static List<List<Integer>> sol(int[] nums, int target, int idx, 
+                                  List<Integer> track, List<List<Integer>> ans){
+        
+        if(target==0){
+            ans.add(new ArrayList<Integer>(track));
+            return ans;
+        }
+        if(target<0) return ans;
+        
+        for(int i=idx; i<nums.length; i++ ){
+            track.add(nums[i]);
+            sol(nums, target-nums[i] , i, track, ans  );
+            track.remove(track.size()-1);
+        }
+        // return sol( nums, target, idx+1, track, ans );
+        return ans;
+    }
+    
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+         List<List<Integer>> fans= new ArrayList<>();
+        List<Integer> pans= new ArrayList<Integer>();
+        
+        return sol(candidates, target, 0, pans, fans);
+        
+    }
+}
