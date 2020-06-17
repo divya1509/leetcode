@@ -1,0 +1,80 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        int size= 0;
+        ListNode curr= head;
+        while(curr!=null){
+            curr= curr.next;
+            size++;
+        }
+        
+        if(size==0 || size==1 || size==2) return;
+        
+        int i= size/2;
+        curr= head;
+        ListNode prev= null;
+        while(i-->0){
+            prev= curr;
+            curr= curr.next;
+        }
+        
+        prev.next= null;
+        prev= null;
+        while(curr!=null){
+            ListNode fut= curr.next;
+            curr.next= prev;
+            prev= curr;
+            curr = fut;
+        }
+        
+        // curr= prev;
+        // while(curr!=null){
+        //     System.out.println(curr.val);
+        //     curr= curr.next;
+        // }
+        
+        ListNode ans= head;
+        head= head.next;
+        i=0;
+        while(prev!=null && head!=null){
+            if(i%2==0) {
+                ans.next= prev;
+                prev= prev.next;
+            }else{
+                ans.next= head;
+                head= head.next;
+            }
+            ans= ans.next;
+            i++;
+        }
+        
+        while(prev!=null){
+            ans.next= prev;
+            prev= prev.next;
+            ans= ans.next;
+        }
+        
+        while(head!=null){
+            ans.next= head;
+            head= head.next;
+            ans= ans.next;
+        }
+        
+        // curr= ans;
+        // while(curr!=null) {
+        //     System.out.println(curr.val);
+        //     curr= curr.next;
+        // }
+        
+        head= ans;
+    }
+}
