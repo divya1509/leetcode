@@ -1,0 +1,34 @@
+class Solution {
+    public int carFleet(int target, int[] position, int[] speed) {
+        int N = position.length;
+        if(N<=0) return 0;
+        Car[] cars = new Car[N];
+        for (int i = 0; i < N; ++i)
+            cars[i] = new Car(position[i], speed[i], target);
+        Arrays.sort(cars);
+        
+        // for (Car i: cars) System.out.println(i.time + " " + i.position);
+        
+        int ans = 0, t = N;
+        while (--t > 0) {
+            if (cars[t].time < cars[t-1].time) ans++; 
+            else cars[t-1] = cars[t]; 
+        }
+
+        return ans + 1;
+    }
+}
+
+class Car implements Comparable<Car> {
+    int position;
+    double time;
+    int speed;
+    Car(int p, int s, int tar) {
+        this.position = p;
+        this.speed = s;
+        this.time =(double) (tar - p) / s;
+    }
+    public int compareTo(Car other) {
+        return this.position - other.position;
+    }
+}
