@@ -1,0 +1,52 @@
+class Solution {
+    
+    static class pair implements Comparable<pair> {
+        int start, end;
+        
+        pair(int a, int b){
+            this.start = a;
+            this.end= b;
+        }
+        
+        public int compareTo(pair other){
+            return this.start- other.start;
+        }
+    }
+    
+    public int[][] merge(int[][] intervals) {
+        int n = intervals.length;
+        if (n <= 1) return intervals;
+        pair[] records = new pair[n];
+        for (int i = 0; i < n; i++) {
+            records[i] = new pair(intervals[i][0] , intervals[i][1]);
+        }
+        Arrays.sort(records);
+        
+        // for (int i = 0; i < n; i++) 
+        //     System.out.println(records[i].start + " " + records[i].end);
+        
+        int mainStart = records[0].start, mainEnd = records[0].end;
+        ArrayList<pair> arr = new ArrayList<>();
+        for (int i = 1; i < n; i++) {
+            
+            if (records[i].start <= mainEnd) {
+                mainEnd = Math.max(mainEnd, records[i].end);
+                // System.out.println("here");
+            } else {
+                arr.add(new pair(mainStart, mainEnd));
+                mainStart = records[i].start;
+                mainEnd = records[i].end;
+                // System.out.println("here 2");
+            }
+        }
+        arr.add(new pair(mainStart, mainEnd));
+        
+        int[][] ans = new int[arr.size()][2];
+        for (int i =0; i <arr.size(); i++) {
+            // System.out.println(arr.get(i).start + " " + arr.get(i).end);
+            ans[i][0] = arr.get(i).start;
+            ans[i][1] = arr.get(i).end;
+        }
+        return ans;
+    }
+}
