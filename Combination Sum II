@@ -1,0 +1,29 @@
+class Solution {
+    private static void sol(List<List<Integer>> ans, List<Integer> curr, int idx, 
+                            int[] nums, int tar, Set<List<Integer>> s) {
+        
+        if (tar == 0) {
+            if(!s.contains(curr)) {
+                List<Integer> temp = new ArrayList<>(curr);
+                s.add(temp);
+                ans.add(temp);
+            }
+            return;
+        }
+        if (tar < 0 || idx == nums.length) return;
+        curr.add(nums[idx]);
+        sol(ans, curr, idx + 1, nums, tar - nums[idx], s);
+        curr.remove(curr.size() - 1);
+        sol(ans, curr, idx + 1, nums, tar, s);
+        
+    }
+    
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> curr = new ArrayList<>();
+        Set<List<Integer>> s = new HashSet<>();
+        Arrays.sort(candidates);
+        sol(ans, curr, 0, candidates, target, s);
+        return ans;
+    }
+}
