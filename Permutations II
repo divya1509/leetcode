@@ -1,0 +1,34 @@
+class Solution {
+   static void sol(List<List<Integer>> fans, List<Integer> pans, 
+                                  int[] nums, boolean[] visited, Set<List<Integer>> s){
+        
+        if(pans.size() == nums.length){
+            if(!s.contains(pans)) {
+                List<Integer> y = new ArrayList<Integer>(pans);
+                fans.add(y);
+                s.add(y);
+            }
+        }
+        
+        for(int i=0; i<nums.length; i++){
+            if(!visited[i]){
+                visited[i]= true;
+                pans.add(nums[i]);
+                sol(fans, pans, nums, visited, s);
+                
+                pans.remove(pans.size()-1);
+                visited[i]= false;
+            }
+        }
+    }
+    
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        Arrays.sort(nums);
+         List<List<Integer>> fans= new ArrayList<>();
+        List<Integer> pans= new ArrayList<Integer>();
+        boolean[] visited=  new boolean[nums.length];
+        Set<List<Integer>> s = new HashSet<>();
+        sol(fans,pans , nums,visited, s);
+        return fans;
+    }
+}
