@@ -1,6 +1,6 @@
 class Solution {
     public int arrangeCoins(int n) {
-//         long h = n*8;
+//         long h = (long)n*8;
 //         // System.out.println();
 //         System.out.println((Math.sqrt(1+ h)));
 //         int ans =(int) (((Math.sqrt(1+ h)) -1)/2);
