@@ -1,0 +1,32 @@
+class Solution {
+    private static boolean check(String str){
+        Stack<Character> s = new Stack<>();
+        int i = 0;
+        while(i < str.length()){
+            if(str.charAt(i) =='(') s.push('(');
+            else {
+                if(s.size() > 0 && s.peek() == '(') s.pop();
+                else return false;
+            }
+            i++;
+        }
+        if(s.size() > 0) return false;
+        return true;
+    }
+    
+    private static void solve(List<String> ans, String temp, int sc, int ec){
+        if(sc == 0 && ec == 0){
+            if(check(temp)) ans.add(temp);
+            return;
+        }
+        if(sc > 0) solve(ans, temp + '(', sc - 1, ec);
+        if(ec > 0) solve(ans, temp + ')', sc, ec - 1);
+    }
+    
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList<>();
+        String temp = "";
+        solve(ans, temp, n , n);
+        return ans;
+    }
+}
