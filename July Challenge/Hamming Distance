@@ -1,0 +1,24 @@
+class Solution {
+    private static String binary(int x) {
+        String ans = "";
+        while (x > 0) {
+            char rem = (char)(x % 2 + '0');
+            ans += rem;
+            x /= 2;
+        }
+        return ans;
+    }
+    
+    public int hammingDistance(int x, int y) {
+        int t = x ^ y;
+        String str = binary(t);
+        // System.out.println(t + " " + str);
+        int count = 0;
+        int i = 0;
+        while(i < str.length()) {
+            if(str.charAt(i) == '1') count++;
+            i++;
+        }
+        return count;
+    }
+}
