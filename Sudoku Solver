@@ -1,0 +1,80 @@
+class Solution {
+    private static boolean rowCheck(char[][] board, int cr){
+        Set<Character> hs = new HashSet<>();
+        for(int i = 0; i < board[0].length; i++) {
+            char ch = board[cr][i];
+            if(ch == '.') continue;
+            
+            if(hs.contains(ch)) return false;
+            hs.add(ch);
+        }
+        return true;
+    }
+    
+    private static boolean colCheck(char[][] board, int cc){
+        Set<Character> hs = new HashSet<>();
+        for(int i = 0; i < board.length; i++) {
+            char ch = board[i][cc];
+            if(ch == '.') continue;
+            
+            if(hs.contains(ch)) return false;
+            hs.add(ch);
+        }
+        return true;
+    }
+    
+    private static boolean box(char[][] board, int sr, int sc) {
+        Set<Character> hs = new HashSet<>();
+        for(int i = sr; i < sr + 3; i++) {
+            for(int j = sc; j < sc + 3; j++) {
+                char ch = board[i][j];
+                if(ch == '.') continue;
+                
+                if(hs.contains(ch)) return false;
+                hs.add(ch);
+            }
+        }
+        return true;
+    }
+    
+    private static boolean solve(char[][] board, int cr, int cc){
+        if(cc == board[0].length ){
+            cr++;
+            cc = 0;
+        }
+        if(cr == board.length){
+            return true;
+        }
+        
+        if(board[cr][cc] != '.') {
+            return solve(board, cr, cc + 1);
+        }
+        int t = 0, y = 0;
+        if (cr < 3) t = 0;
+        else if(cr < 6) t = 3;
+        else t = 6;
+            
+        if (cc < 3) y = 0;
+        else if(cc < 6) y = 3;
+        else y = 6;
+        
+        for (int i = 1; i < 10; i++) {
+            board[cr][cc] = (char)(i + '0');
+            boolean temp = false;
+            if(rowCheck(board,cr) && colCheck(board,cc) && box(board,t,y)) {
+                temp = solve(board, cr , cc + 1);
+            }
+            if(temp) return true;
+            board[cr][cc] = '.';
+        }
+        return false;
+    }
+    
+    public void solveSudoku(char[][] board) {
+          solve(board, 0, 0);
+    }
+}
+
+
+
+
