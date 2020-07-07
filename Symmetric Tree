@@ -1,0 +1,66 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    // private static void inorder(ArrayList<Integer> ans, TreeNode root){
+    //     if(root == null) return;
+    //     inorder(ans, root.left);
+    //     ans.add(root.val);
+    //     inorder(ans, root.right);
+    // }
+    
+    private static TreeNode convert(TreeNode root){
+        if(root == null) return null;
+        
+        TreeNode newRight = convert(root.left);
+        TreeNode newLeft = convert(root.right);
+        TreeNode ans = new TreeNode(root.val, newLeft, newRight);
+        return ans;
+    }
+    
+    private static boolean check(TreeNode A, TreeNode B){
+        if(A == null && B == null) return true;
+        if(A == null || B == null) return false;
+        if(A.val != B.val) return false;
+        
+        if(!check(A.left, B.left) || !check(A.right, B.right)) return false;
+        return true;
+        
+    }
+    
+    private static boolean method2(TreeNode A, TreeNode B){
+        if(A == null && B == null) return true;
+        if(A == null || B == null) return false;
+        if(A.val != B.val) return false;
+        
+        if(!method2(A.left, B.right) || !method2(A.right, B.left)) return false;
+        return true;
+    }
+    
+    public boolean isSymmetric(TreeNode root) {
+        // ArrayList<Integer> before = new ArrayList<>();
+        // inorder(before, root);
+        // TreeNode newRoot = convert(root);
+        // ArrayList<Integer> after = new ArrayList<>();
+        // inorder(after, root);
+        
+        // if(before.equals(after)) return true;
+        // return false;
+        
+        // return check(root, newRoot);
+        if(root == null) return true;
+        return method2(root.left, root.right);
+    }
+}
