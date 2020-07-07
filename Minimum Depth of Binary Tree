@@ -1,0 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int minDepth(TreeNode root) {
+        int ans = 1;
+        if(root == null) return 0;
+        int lAns = minDepth(root.left);
+        int rAns = minDepth(root.right);
+        if(lAns != 0 && rAns != 0) ans += Math.min(lAns, rAns);
+        else if(lAns == 0) ans += rAns;
+        else ans += lAns;
+        return ans;
+    }
+}
