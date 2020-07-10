@@ -1,0 +1,39 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node prev;
+    public Node next;
+    public Node child;
+};
+*/
+
+class Solution {
+    public Node flatten(Node head) {
+        if(head == null) return null;
+        
+        Node ansHead = null, pre = null, curr = null;
+        Stack<Node> s = new Stack<>();
+        s.push(head);
+        
+        while (s.size() > 0) {
+            Node temp = s.pop();
+            Node insert = new Node(temp.val);
+            if (ansHead == null) {
+                ansHead = insert;
+                pre = ansHead;
+            } else {
+                curr = insert;
+                pre.next = curr;
+                curr.prev = pre;
+                pre = curr;
+            }
+            
+            if (temp.next != null) s.push(temp.next);
+            if (temp.child != null) s.push(temp.child);
+            
+        }
+        
+        return ansHead;
+    }
+}
