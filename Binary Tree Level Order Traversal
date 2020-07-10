@@ -13,6 +13,8 @@
  *     }
  * }
  */
+ 
+ /*    // -------------------  this approach uses pair (extra space) --------------------
 class Solution {
     static class pair{
         int h;
@@ -40,6 +42,31 @@ class Solution {
             ans.get(level).add(curr.node.val);
             if(curr.node.left != null) q.add(new pair(curr.h + 1, curr.node.left));
             if(curr.node.right != null) q.add(new pair(curr.h + 1, curr.node.right));
+        }
+        return ans;
+    }
+}
+ */
+ 
+ 
+ // -------------------------  this approach is better ------------------
+ class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) return ans;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        
+        while (q.size() > 0) {
+            int size = q.size();
+            List<Integer> temp = new ArrayList<>();
+            while (size-- > 0) {
+                TreeNode curr = q.poll();
+                temp.add(curr.val);
+                if(curr.left != null) q.add(curr.left);
+                if(curr.right != null) q.add(curr.right);
+            }
+            ans.add(temp);
         }
         return ans;
     }
