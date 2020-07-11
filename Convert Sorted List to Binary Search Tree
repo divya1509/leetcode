@@ -1,0 +1,63 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private static ListNode midFind(ListNode start, ListNode end){
+        ListNode slow = start, fast = start;
+        while(fast != end && fast.next != end){
+            // prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    } 
+    
+    private static TreeNode solve(ListNode start, ListNode end, Set<ListNode> hs) {
+        if(start == null) return null;
+        // if(start == end) {
+        //     return new TreeNode(start.val, null, null);
+        // }
+        if(end != null && start.val > end.val) return null;
+        
+        ListNode mid = midFind(start, end);
+        if(hs.contains(mid)) return null;
+        hs.add(mid);
+        TreeNode root = new TreeNode(mid.val);
+        root.left = solve(start, mid, hs);
+        root.right = solve(mid.next, end, hs);
+        return root;
+    }
+    
+    public TreeNode sortedListToBST(ListNode head) {
+        Set<ListNode> hs = new HashSet<>();
+        return solve(head, null, hs);
+    }
+}
+
+
+
+
+
+
