@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    static class pair{
+        TreeNode root;
+        int level;
+        pair(TreeNode node, int i) {
+            root = node;
+            level = i;
+        }
+    }
+    
+    public TreeNode recoverFromPreorder(String S) {
+        if(S.length() == 0) return null;
+        
+        Stack<pair> s = new Stack<>();
+        int currLevel = 0;
+        int num = 0;
+        TreeNode root = new TreeNode();
+        for (int i = 0; i < S.length(); i++) {
+            char ch = S.charAt(i);
+            if(ch == '-') currLevel++;
+            else {
+                num *= 10;
+                num += ch - '0';
+                if(i + 1 < S.length() && S.charAt(i + 1) != '-') {
+                    continue;
+                }
+                
+                TreeNode insert = new TreeNode(num);
+                while(s.size() > 0 && s.peek().level >= currLevel) {
+                    s.pop();
+                }
+                if(s.size() == 0) {
+                    root = insert;
+                    s.push(new pair(root, 0));
+                    
+                } else {
+                    pair temp = s.pop();
+                    if(temp.root.left == null) {
+                        temp.root.left = insert;
+                        s.push(temp);
+                    } else {
+                        temp.root.right = insert;
+                    }
+                    s.push(new pair(insert, currLevel));
+                }
+                currLevel = 0;
+                num = 0;
+            }
+        }
+        return root;
+    }
+}
