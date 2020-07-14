@@ -1,0 +1,24 @@
+class Solution {
+    public int reverse(int x) {
+        long rev = 0;
+        long num = (long) x;
+        boolean check = false;
+        if(num < 0) {
+            num = -num;
+            check = true;
+        }
+        
+        while(num > 0 && rev > Integer.MIN_VALUE && rev < Integer.MAX_VALUE) {
+            long rem = num % 10;
+            rev = rev * 10 + rem;
+            num /= 10;
+        } 
+        
+        if(rev > Integer.MIN_VALUE && rev < Integer.MAX_VALUE) {
+            if(check) rev = -rev;
+            
+            return (int) rev;
+        }
+        return 0;
+    }
+}
