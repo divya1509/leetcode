@@ -1,0 +1,23 @@
+class Solution {
+    public String reverseWords(String s) {
+        Stack<String> st = new Stack<>();
+        String curr = "";
+        
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if(s.charAt(i) == ' ' && !curr.equals("")) {
+                st.push(curr);
+                curr = "";
+            } else if(s.charAt(i) != ' ') curr += ch;
+        }
+        if(!curr.equals("")) st.push(curr);
+        
+        String ans = "";
+        
+        while(st.size() > 0) {
+            ans += st.pop();
+            if(st.size() > 0) ans += ' ';
+        }
+        return ans;
+    }
+}
