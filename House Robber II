@@ -1,0 +1,28 @@
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n == 0) return 0;
+        if(n == 1) return nums[0];
+        
+        int[] inc = new int[n];
+        int[] exe = new int[n];
+        
+        inc[0] = nums[0];
+        for (int i = 1; i < n - 1; i++) {
+            inc[i] = exe[i - 1] + nums[i];
+            exe[i] = Math.max(inc[i - 1], exe[i - 1]);
+        }
+        
+        int ans = Math.max(inc[n - 2], exe[n - 2]);
+        
+        inc[1] = nums[1];
+        exe[1] = 0;
+        for (int i = 2; i < n; i++) {
+            inc[i] = exe[i - 1] + nums[i];
+            exe[i] = Math.max(inc[i - 1], exe[i - 1]);
+        }
+        int res = Math.max(inc[n - 1], exe[n - 1]);
+        
+        return Math.max(ans, res);
+    }
+}
