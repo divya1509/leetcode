@@ -1,0 +1,20 @@
+class Solution {
+    public boolean detectCapitalUse(String word) {
+        
+        boolean caps = false;
+        int n = word.length();
+        if(n == 0) return true;
+        
+        if(word.charAt(n - 1) >= 'A' && word.charAt(n - 1) <= 'Z') caps = true;
+        
+        for(int i = n - 2; i > 0; i--) {
+            char ch = word.charAt(i);
+            if(!caps && ch >= 'A' && ch <= 'Z') return false;
+            if(caps && ch >= 'a' && ch <= 'z') return false;
+        }
+        
+        if(word.charAt(0) >= 'a' && word.charAt(0) <= 'z' && caps) return false;
+        
+        return true;
+    }
+}
