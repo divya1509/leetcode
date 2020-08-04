@@ -1,0 +1,16 @@
+class Solution {
+    public boolean isPowerOfFour(int num) {
+        
+        if(num == 1) return true;
+        if(num < 4) return false;
+        
+        if(num % 4 != 0) return false;
+        // return isPowerOfFour(num / 4);
+        
+        
+        double temp = Math.log(num) / Math.log(4);
+        if(temp % 1 == 0) return true;
+        return false;
+        
+    }
+}
