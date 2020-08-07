@@ -1,0 +1,74 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+     static class pair implements Comparable<pair>{
+         int val;
+         int h;
+         
+         pair (int t, int v) {
+             this.val = t;
+             this.h = v;
+         }
+         
+         public int compareTo(pair other) {
+             if(this.h == other.h) return this.val - other.val;
+             return this.h - other.h;
+         }
+     }
+    
+    private static void sol(TreeNode root, int level, int height, TreeMap<Integer, List<pair>> hm) {
+        
+        
+        if(hm.containsKey(level)) {
+            hm.get(level).add(new pair(root.val, height));
+        } else {
+            List<pair> temp = new ArrayList<>();
+            temp.add(new pair(root.val, height));
+            hm.put(level, temp);
+        }
+        if(root.left != null) sol(root.left, level - 1, height + 1, hm);
+        if(root.right != null) sol(root.right, level + 1, height + 1, hm);
+        
+    }
+    
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root == null) return ans;
+        
+        TreeMap<Integer, List<pair>> hm = new TreeMap<>();
+        
+        sol(root, 0, 0, hm);
+        
+        for(Integer temp : hm.keySet()) {
+//             for(int i = 0; i <hm.get(temp).size(); i++) {
+//                 System.out.print(hm.get(temp).get(i).val + " " + hm.get(temp).get(i).h + " - ");
+//             }
+            
+//             System.out.println(" after : ");
+            
+            Collections.sort(hm.get(temp));
+            List<Integer> arr = new ArrayList<>();
+            for(int i = 0; i <hm.get(temp).size(); i++) {
+                arr.add(hm.get(temp).get(i).val);
+                // System.out.print(hm.get(temp).get(i).val + " " + hm.get(temp).get(i).h + " - ");
+            }
+            // System.out.println();
+            ans.add(arr);
+        }
+        
+        return ans;
+    }
+}
