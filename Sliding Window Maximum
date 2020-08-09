@@ -1,0 +1,37 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        
+        Stack<Integer> s = new Stack<>();
+        int n = nums.length;
+        int[] dp = new int[n];
+        
+        //find next greater element on right to every element
+        for (int i = n - 1; i >= 0; i--) {
+            
+            //remove all the elements in stack which are smaller than current value
+            while(s.size() > 0 && nums[s.peek()] <= nums[i]) {
+                s.pop();
+            }
+            
+            if(s.size() == 0) dp[i] = n;
+            else dp[i] = s.peek();
+            
+            s.push(i);
+        }
+        
+        int[] ans = new int[n - k + 1];
+        // j points to the value maximum in the crrent window 
+        int j = 0;
+        for(int i = 0; i < ans.length; i++) {
+            if(j < i) j = i;
+            
+            //find the maximum number of the window
+            while(dp[j] < i + k && dp[j] != n) {
+                j = dp[j];
+            }
+            
+            ans[i] = nums[j];
+        }
+        return ans;
+    }
+}
