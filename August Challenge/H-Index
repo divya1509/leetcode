@@ -1,0 +1,16 @@
+class Solution {
+    public int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        
+        int n = citations.length;
+        if(n == 0) return 0;
+        
+        int l=0, r= citations.length-1;
+        while( l<=r ){
+            int mid= (l+r)/2;
+            if(mid + citations[mid] < citations.length ) l= mid+1;
+            else r = mid-1;
+        }
+        return citations.length - l ;
+    }
+}
